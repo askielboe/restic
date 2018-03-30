@@ -7,6 +7,9 @@ import (
 // Local is the local file system. Most methods are just passed on to the stdlib.
 type Local struct{}
 
+// statically ensure that Local implements FS.
+var _ FS = &Local{}
+
 // Open opens a file for reading.
 func (fs Local) Open(name string) (File, error) {
 	return os.Open(fixpath(name))
